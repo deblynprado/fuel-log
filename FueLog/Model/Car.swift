@@ -13,10 +13,16 @@ import SwiftData
 @Model
 class Car {
     var id: UUID
+    var brand: String
     var model: String
+    var plate: String
+    var color: String
     
-    init(model: String) {
+    init(brand: String, model: String, plate: String, color: String) {
         self.id = UUID()
+        self.brand = brand
         self.model = model
+        self.plate = plate
+        self.color = color
     }
 }

@@ -14,6 +14,9 @@ struct AddCarView: View {
     @Environment(\.modelContext) private var modelContext
     @Binding var selectedTab: Int
     @State private var carModel: String = ""
+    @State private var carBrand: String = ""
+    @State private var carPlate: String = ""
+    @State private var carColor: String = ""
     
     private var carService: CarService {
         CarService(modelContext: modelContext)
@@ -22,9 +25,14 @@ struct AddCarView: View {
     var body: some View {
         NavigationView {
             VStack {
-                TextField("Enter car model", text: $carModel)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
+                VStack {
+                    TextField("Enter car Model", text: $carModel)
+                    TextField("Enter car Brand", text: $carBrand)
+                    TextField("Enter car Plate", text: $carPlate)
+                    TextField("Enter car Color", text: $carColor)
+                }
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
                 
                 Button("Save Car") {
                     saveCar()
@@ -42,8 +50,11 @@ struct AddCarView: View {
         guard !carModel.isEmpty else { return }
         
         do {
-            try carService.saveCar(model: carModel)
+            try carService.saveCar(model: carModel, brand: carBrand, plate: carPlate, color: carColor)
             carModel = ""
+            carBrand = ""
+            carColor = ""
+            carPlate = ""
             selectedTab = 0 // Go back to car list
         } catch {
             print("Failed to save car: \(error)")

@@ -19,11 +19,14 @@ struct CarListView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(cars, id: \.id) { car in
-                    Text(car.model)
-                        .font(.headline)
+                    HStack {
+                        Text(car.model)
+                        Spacer()
+                        Text(car.plate)
+                    }
                 }
                 .onDelete(perform: deleteCars)
             }

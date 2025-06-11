@@ -16,8 +16,8 @@ class CarService {
         self.modelContext = modelContext
     }
     
-    func saveCar(model: String) throws {
-        let newCar = Car(model: model)
+    func saveCar(model: String, brand: String, plate: String, color: String) throws {
+        let newCar = Car(brand: brand, model: model, plate: plate, color: color)
         modelContext.insert(newCar)
         try modelContext.save()
     }
